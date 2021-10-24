@@ -51,3 +51,10 @@ label{
   cursor: pointer;
   font-style: italic;
 }
+
+legend{
+  text-align: center;
+  font-style:oblique;
+  font-size:x-large;
+  font-family:'Times New Roman', Times, serif;
+}
