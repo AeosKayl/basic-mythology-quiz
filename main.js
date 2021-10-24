@@ -25,8 +25,8 @@ const submitBtn = document.querySelector("#submit");
 const resetBtn = document.querySelector("#reset");
 const rightAnswers = document.querySelectorAll("[value='right']");
 let wrongAnswers = document.querySelectorAll("[value='wrong']");
-let points = 0;
-const maxPoints = 10;
+let points = 0; //* för att räkna användarens poäng
+const maxPoints = 10; //* max nårbar poäng som inte används, kanske tar bort denna variabel
 
 submitBtn.addEventListener("click",()=>{
   console.log("this works");
@@ -41,11 +41,11 @@ submitBtn.addEventListener("click",()=>{
   //   console.log("choose at least one option");
   //   results.innerText  = "choose an answer";
   // }
-  let userInput = [];
-  let rightInputs = [];
-  let wrongCheckInputs = [];
-  let rightCheckinputs = [];
-  let wrongInputs = [];
+  let userInput = []; //* för att spara användarens val
+  let rightInputs = []; //* svar med värdet "right" sparas
+  let wrongCheckInputs = []; //* checkbox svar med värdet "wrong"
+  let rightCheckinputs = []; //* checkbox svar med värdet "right"
+  let wrongInputs = []; //* svar med värdet "wrong" sparas
   
 
   // console.log(userInput);
@@ -94,10 +94,10 @@ submitBtn.addEventListener("click",()=>{
   //   console.log("please choose an answer");
   // }
   
-  //*kollar om checkboxes med rätta svar är valda
+  //*kollar om checkboxes med rätta svar är valda -i testfas fortfarande
   if(input.type === "checkbox" && input.checked && input.value === "right"){
     console.log(`You chose the ${input.value} answer for ${input.id}`);
-  }//*annars om checkboxes med fel är valda
+  }//*annars om checkboxes med fel är valda -i testfas fortfarande
   else if (input.type === "checkbox" && input.checked){
     console.log(`You checked the box ${input.id} which is${input.value}`);
   }
@@ -117,7 +117,7 @@ submitBtn.addEventListener("click",()=>{
     return false;
   }
   else if(checkboxLimit > 2){
-    alert("You may only choose 2 options out of the given 4. No cheating allowed")
+    alert("You may only choose 2 options out of the given 4. No cheating allowed.")
     points = 0;
     return false;
   }
@@ -142,7 +142,7 @@ submitBtn.addEventListener("click",()=>{
     results.style.color = "red";
     results.innerHTML = `<h3><legend>Perhaps you're not into mythology. Your glorious score is ${points} out of 10 points...</legend></h3>`
   }
-  disableBtn();
+  disableBtn(); //* funktionen anropas för att man inte ska kunna ändra alternativ efter ett försök
 
 
   
@@ -152,6 +152,8 @@ submitBtn.addEventListener("click",()=>{
 resetBtn.addEventListener('click', () => {
   //* denna kod resettar hela sidan, t.o.m. temat
   // location.reload();
+  //* följande kodrader är för att nollställa variablerna nederst
+  //* samt alla knappar/inputs.
    userInput = [];
    rightInputs = [];
    rightCheckinputs = [];
@@ -169,7 +171,7 @@ resetBtn.addEventListener('click', () => {
 
 //* funktion för att stoppa user input
 function disableBtn(){
-  answers.forEach(input =>{
+  answers.forEach(input =>{ // går igenom alla input knappar och inaktiverar dem
     input.disabled = true;
   })
   submitBtn.disabled = true;
