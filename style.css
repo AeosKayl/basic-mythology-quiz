@@ -1,10 +1,4 @@
-
-/* body{
-  background-image: radial-gradient(circle, rgba(255,0,0,0), rgb(62, 149, 184));
-} */
 .container{
-  /* background: gold;
-  color: darkred; */
   text-align: center;
   font-style: oblique;
   font-size: x-large;
@@ -18,10 +12,8 @@
 #results{
   text-align: center;
   font-style:italic;
-  font-size:x-large;
+  font-size: xx-large;
 }
-
-
 
 h4{
   text-align: center;
