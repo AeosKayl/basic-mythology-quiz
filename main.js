@@ -21,7 +21,6 @@ thisBody.style.color = "black";
 const results = document.querySelector("#results");  
 const submitBtn = document.querySelector("#submit");
 const resetBtn = document.querySelector("#reset");
-const highlightBtn = document.querySelector("#highlight");
 const rightAnswers = document.querySelectorAll("[value='right']");
 let wrongAnswers = document.querySelectorAll("[value='wrong']");
 let points = 0; //* för att räkna användarens poäng
