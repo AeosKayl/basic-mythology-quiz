@@ -113,11 +113,11 @@ submitBtn.addEventListener("click",()=>{
     results.style.color = "green";
     results.innerHTML = `<h3><legend>Congratulations! Your score is ${points} out of 10 points!</legend></h3>`
   }
-  else if(points >= 10*0.5 && points <= 10*0.75 ){
+  else if(points > 10*0.5 && points <= 10*0.75 ){
     results.style.color = "orange";
     results.innerHTML = `<h3>Not bad, you got more than 50% right answers.<br/> Your score is ${points} out of 10 points.</h3>`
   }
-  else if(points > 10*0.25 && points < 10*0.5){
+  else if(points > 10*0.25 && points <= 10*0.5){
     results.innerHTML = `<h3>Well that sucks, your score is ${points} out of 10 points.</h3>`
   }
   else{
