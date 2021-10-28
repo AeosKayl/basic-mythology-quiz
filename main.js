@@ -10,9 +10,7 @@ thisBody.style.color = "black";
   const checkboxes = document.querySelectorAll("[name='choice1']");
   const rightCheckboxes = document.querySelectorAll("[name='choice1'][value='right']");
   const wrongCheckboxes = document.querySelectorAll("[name='choice1'][value='wrong']");
-  //console.log(checkboxes);
 
-  //console.log(answers);
   //*testar om jag kan få ut värdena av svaren
   // answers.forEach(input =>{
   //   if(!input.checked){
@@ -23,6 +21,7 @@ thisBody.style.color = "black";
 const results = document.querySelector("#results");  
 const submitBtn = document.querySelector("#submit");
 const resetBtn = document.querySelector("#reset");
+const highlightBtn = document.querySelector("#highlight");
 const rightAnswers = document.querySelectorAll("[value='right']");
 let wrongAnswers = document.querySelectorAll("[value='wrong']");
 let points = 0; //* för att räkna användarens poäng
@@ -30,46 +29,32 @@ const maxPoints = 10; //* max nårbar poäng som inte används, kanske tar bort 
 
 submitBtn.addEventListener("click",()=>{
   console.log("this works");
-  // if(input.type === "checkbox" && !input.checked){
-  //   console.log("please choose an answer");
-  // }
-  // if(!answers.checked){
-  //   console.log("you must choose an answer");
-  //   results.innerText  = "choose an answer";
-  // }
-  // else if(!checkboxes.checked){
-  //   console.log("choose at least one option");
-  //   results.innerText  = "choose an answer";
-  // }
+
   let userInput = []; //* för att spara användarens val
   let rightInputs = []; //* svar med värdet "right" sparas
   let wrongCheckInputs = []; //* checkbox svar med värdet "wrong"
   let rightCheckinputs = []; //* checkbox svar med värdet "right"
   let wrongInputs = []; //* svar med värdet "wrong" sparas
   
-
-  // console.log(userInput);
-
-
+  //* foreach för att räkna poäng & spara värden
   answers.forEach(input =>{
-    // console.log(input);
-    if(input.checked){
-      userInput.push(input.id);
-      if(input.value === "right"){
-        rightInputs.push(input.id)
-        if(input.type === "checkbox"){
-          rightCheckinputs.push(input.id);
-          if(rightCheckinputs.length === 2){
-            points ++;
+    if(input.checked){ //* om ett svarsfält är ibockat
+      userInput.push(input.id); //* pushas id i arrayen userInput
+      if(input.value === "right"){ //* och i fall dess värde är rätt
+        rightInputs.push(input.id) //* pushas det i arrayen rightInputs
+        if(input.type === "checkbox"){ //* dessutom om typen är en checkbox
+          rightCheckinputs.push(input.id); //* pushas det i en array för rätta checkboxar
+          if(rightCheckinputs.length === 2){ //* om 2 checkboxar med värdet "right" har bockats
+            points ++; //* poäng ska adderas, annars inga poäng
           }
         }
-        else{
-          points++;
+        else{ //* annars om man bokar i radiobuttons med värdet "right"
+          points++; //* poäng ska adderas
         }
       }
-      else{
+      else{ //* annars, dvs om värdet av input är fel
         wrongInputs.push(input.id);
-        if(input.type === "checkbox"){
+        if(input.type === "checkbox"){ //* denna kodblock kanske är öveflödig
           wrongCheckInputs.push(input.id);
         }
       }
@@ -78,7 +63,7 @@ submitBtn.addEventListener("click",()=>{
     
     
     //*denna if grönmarkerar alla input som är checkade och har värdet "right"
-    // if(input.checked && (input.value === "right")){
+    // if(input.checked && (input.value === "right" || input.value === "wrong")){
     //   input.previousElementSibling.style.background = "lightgreen";
     //   console.log("you answered "+ input.value + " on "+input.parentElement.previousElementSibling.previousElementSibling.innerText);
     //   console.log(input.parentElement.previousElementSibling.previousElementSibling.innerText);
@@ -88,11 +73,8 @@ submitBtn.addEventListener("click",()=>{
     //   input.previousElementSibling.style.background = "red";
     // }
 
-    //TODO: behöver kolla första checkbox frågan och se till att svaret blir rätt bara om
+  //TODO: behöver kolla första checkbox frågan och se till att svaret blir rätt bara om
   //TODO båda rätt svär är valda
-  // if(input.name === "choice1" && !input.checked){
-  //   console.log("please choose an answer");
-  // }
   
   //*kollar om checkboxes med rätta svar är valda -i testfas fortfarande
   if(input.type === "checkbox" && input.checked && input.value === "right"){
@@ -110,21 +92,23 @@ submitBtn.addEventListener("click",()=>{
   console.log(checkboxLimit + " is the length of the checkboxes that are checked");
   console.log(rightCheckinputs + " right answers",wrongCheckInputs + " wrong answers");
   
-  // if(rightInputs.length < rightAnswers.length){
-  // }
-  if(userInput.length < 1){
+
+  //* If-sats som bestämmer vad som ska hända om:
+  if(userInput.length < 1){  //* 1- man lämnar svarsfälten tomma
     alert("You can not submit an empty quiz");
     return false;
   }
-  else if(checkboxLimit > 2){
+  else if(checkboxLimit > 2){ //* om man väljer fler än 2 checkboxar
     alert("You may only choose 2 options out of the given 4. No cheating allowed.")
     points = 0;
     return false;
   }
+
+  //* If-sats som bestämmer vad som ska skrivas ut i resultatfältet
   if(points === 10){
     results.style.color = "gold";
     results.style.background = "darkred";
-    results.innerHTML = `<h2><legend>You are a Legend-Killer.<br/> Perfect score and that is ${points} out of 10</legend></h2>`
+    results.innerHTML = `<h3>You are a Legend-Killer.<br/> Perfect score and that is ${points} out of 10</h3>`
   }
   else if(points > 10 * 0.75){
     results.style.color = "green";
@@ -132,20 +116,17 @@ submitBtn.addEventListener("click",()=>{
   }
   else if(points >= 10*0.5 && points <= 10*0.75 ){
     results.style.color = "orange";
-    results.innerHTML = `<h3><legend>Not bad, you got more than 50% right answers. Your score is ${points} out of 10 points.</legend></h3>`
+    results.innerHTML = `<h3>Not bad, you got more than 50% right answers.<br/> Your score is ${points} out of 10 points.</h3>`
   }
   else if(points > 10*0.25 && points < 10*0.5){
-    // results.style.color = "black";
-    results.innerHTML = `<h3><legend>Well that sucks, your score is ${points} out of 10 points.</legend></h3>`
+    results.innerHTML = `<h3>Well that sucks, your score is ${points} out of 10 points.</h3>`
   }
   else{
     results.style.color = "red";
-    results.innerHTML = `<h3><legend>Perhaps you're not into mythology. Your glorious score is ${points} out of 10 points...</legend></h3>`
+    results.innerHTML = `<h3>Perhaps you're not into mythology.<br/> Your glorious score is ${points} out of 10 points...</h3>`
   }
   disableBtn(); //* funktionen anropas för att man inte ska kunna ändra alternativ efter ett försök
-
-
-  
+ 
 })
 
 //* när användaren trycker på reset, kommer resultaten att nollställas och man kan börja om
