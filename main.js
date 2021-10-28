@@ -172,6 +172,6 @@ function changeMode(){
     headers.style.color = "black";
     nightMode.innerText = "Dark Mode";
     nightMode.style.color = "black";
-    nightMode.style.background = "lightgrey";
+    nightMode.style.background = "";
   }
 }
