@@ -80,7 +80,7 @@ submitBtn.addEventListener("click",()=>{
     console.log(`You chose the ${input.value} answer for ${input.id}`);
   }//*annars om checkboxes med fel är valda -i testfas fortfarande
   else if (input.type === "checkbox" && input.checked){
-    console.log(`You checked the box ${input.id} which is${input.value}`);
+    console.log(`You checked the box ${input.id} which is ${input.value}`);
   }
   
 
@@ -117,7 +117,11 @@ submitBtn.addEventListener("click",()=>{
     results.style.color = "orange";
     results.innerHTML = `<h3>Not bad, you got more than 50% right answers.<br/> Your score is ${points} out of 10 points.</h3>`
   }
-  else if(points > 10*0.25 && points <= 10*0.5){
+  else if(points === 10*0.5){
+    results.style.color = "purple";
+    results.innerHTML = `<h3>You got half of the answers right, Kudos.<br> Your score is ${points} out of 10 points.</h3>`
+  }
+  else if(points > 10*0.25 && points < 10*0.5){
     results.innerHTML = `<h3>Well that sucks, your score is ${points} out of 10 points.</h3>`
   }
   else{
